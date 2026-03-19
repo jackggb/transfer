@@ -10,6 +10,12 @@ export default {
       return fetch(proxyUrl, { headers: request.headers, method: request.method, body: request.body });
     }
     
+    if (proxyTarget === 'tiktokapis') {
+      const proxyUrl = new URL(url.pathname + url.search, 'https://open.tiktokapis.com');
+      proxyUrl.searchParams.delete('proxy');
+      return fetch(proxyUrl, { headers: request.headers, method: request.method, body: request.body });
+    }
+    
     if (proxyTarget === 'wuyinkeji') {
       const proxyUrl = new URL(url.pathname + url.search, 'https://api.wuyinkeji.com');
       proxyUrl.searchParams.delete('proxy');
