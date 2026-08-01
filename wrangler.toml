@@ -1,0 +1,6 @@
+name = "transfer"
+pages_build_output_dir = "."
+compatibility_date = "2026-01-30"
+
+[placement]
+region = "aws:us-east-1"
