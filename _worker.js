@@ -25,7 +25,15 @@ export default {
     if (proxyTarget === 'openrouter') {
       const proxyUrl = new URL(url.pathname + url.search, 'https://openrouter.ai');
       proxyUrl.searchParams.delete('proxy');
-      return fetch(proxyUrl, { headers: request.headers, method: request.method, body: request.body });
+      const headers = new Headers();
+      const auth = request.headers.get('Authorization');
+      const contentType = request.headers.get('Content-Type');
+      if (auth) headers.set('Authorization', auth);
+      if (contentType) headers.set('Content-Type', contentType);
+      // 可选：OpenRouter 推荐头
+      headers.set('HTTP-Referer', 'https://boluo-ai.cn');
+      headers.set('X-Title', 'boluo');
+      return fetch(proxyUrl, { headers: headers, method: request.method, body: request.body });
     }
 
     if (proxyTarget === 'apimart') {
